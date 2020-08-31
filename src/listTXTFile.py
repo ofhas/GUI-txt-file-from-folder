@@ -7,8 +7,13 @@ from tkinter import *
 import glob
 from tkinter import messagebox
 
-root = tk.Tk()
-var = tk.StringVar()
+
+def save_text():
+    global text
+    label_text.set(f'Type: {entry_text.get()}')
+    print(entry_text.get())
+    text = entry_text.get()
+    print(text)
 
 
 def createTxt(destinationFolder, fileType):
@@ -21,16 +26,12 @@ def createTxt(destinationFolder, fileType):
             destinationFolder, fn) + '\n' for fn in files)
 
 
-def getInput():
-
-    global newValue
-    newValue = value.get()
-
-
 def source():
     global source
     source = filedialog.askdirectory()
 
+
+root = tk.Tk()
 
 canvas2 = tk.Canvas(root, width=300, height=350,
                     bg='lightsteelblue2', relief='raised')
@@ -40,19 +41,27 @@ sourceDirectoryNew = Button(root, text="      Source Directory     ",
                             command=source, bg='green', fg='white', font=('helvetica', 12, 'bold'))
 canvas2.create_window(150, 50, window=sourceDirectoryNew)
 
-Label(root, text='File Type:').place(x=35, y=75)
 
-value = Entry(root, textvariable=var).place(x=100, y=75)
+label_text = tk.StringVar()
+label = tk.Label(root, textvariable=label_text)
+label.place(x=195, y=75)
 
 
-loadType = Button(root, text="      Load file type     ",
-                  command=getInput, bg='green', fg='white', font=('helvetica', 12, 'bold'))
+entry_text = tk.StringVar()
+entry = tk.Entry(root, width=10, textvariable=entry_text)
+entry.place(x=120, y=75)
 
-canvas2.create_window(150, 120, window=loadType)
+headline = Label(root, text='Enter File Type:')
+headline.place(x=30, y=75)
 
 createTXTFile = tk.Button(root, text="      Create TXT     ",
-                          command=lambda: createTxt(source, fileType), bg='green', fg='white', font=('helvetica', 12, 'bold'))
+                          command=lambda: createTxt(source, text), bg='green', fg='white', font=('helvetica', 12, 'bold'))
 canvas2.create_window(150, 160, window=createTXTFile)
+
+
+button = tk.Button(root, text="Load file type", command=save_text,
+                   bg='green', fg='white', font=('helvetica', 12, 'bold'))
+canvas2.create_window(150, 120, window=button)
 
 
 root.mainloop()
