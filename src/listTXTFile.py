@@ -24,6 +24,8 @@ def createTxt(destinationFolder, fileType):
     with open('files_list.txt', 'w') as in_files:
         in_files.writelines(os.path.join(
             destinationFolder, fn) + '\n' for fn in files)
+    messagebox.showinfo(
+        "Information",  "TXT File Created!")
 
 
 def source():
