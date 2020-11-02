@@ -1,3 +1,4 @@
+
 import tkinter as tk
 from tkinter import filedialog
 import os
@@ -21,9 +22,10 @@ def createTxt(destinationFolder, fileType):
     print(fileType)
     os.chdir(destinationFolder)
     files = glob.glob('*.' + fileType)
+    print(files)
     with open('files_list.txt', 'w') as in_files:
-        in_files.writelines(os.path.join(
-            destinationFolder, fn) + '\n' for fn in files)
+       in_files.writelines(os.path.join(fn) + '\n' for fn in files)
+
     messagebox.showinfo(
         "Information",  "TXT File Created!")
 
@@ -67,3 +69,4 @@ canvas2.create_window(150, 120, window=button)
 
 
 root.mainloop()
+
